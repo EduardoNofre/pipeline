@@ -6,7 +6,7 @@ def iniciarDeploy(gitUrl){
 	  
  try {
 		 stage("Build") {
-			iniciarDeploy()
+			deployApp()
 		 }
 		 
 		 stage("Code Quality - Sonar") {
@@ -28,7 +28,7 @@ def iniciarDeploy(gitUrl){
 }
 
 
-def iniciarDeploy() {
+def deployApp() {
 
       echo " -------------------------------------- "
       echo " ----------- STEP INICIO BUILD -------- "
