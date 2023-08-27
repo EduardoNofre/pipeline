@@ -16,7 +16,11 @@ def iniciarDeploy(gitUrl){
 		 stage("Quality Gate") {
 			qualityGate()
 		 }
-		 
+
+	 	stage("Build Docker") { 
+	 		buildDocker() 
+		}
+	 
 		 stage("Publish Container DEV") {  
 			publishContainerDev()
 		 }
@@ -159,6 +163,12 @@ def codeQuality() {
       echo " --------------------------------------------------- "
     }
 
+def buildDocker() {
+	def nomeImagem = gitUrl.tokenize('/').last().split("\\.")[0]
+	echo "NOME DA IMAGEM QUE SERA PUBLICADA NO DOCKER"
+	echo "${nomeImagem}"
+}
+	
  def publishContainerDev() {
     
       echo " ---------------------------------------------------------- "
