@@ -1,3 +1,6 @@
+# Este repositorio
+Este repositorio se encontra os scripts para a publicação dos projetos. Esses scripts tem o passo a passo dos jenkins para fazer a públicação dos projetos.
+
 # pipeline
 jenkins file deploy da aplicação versão generica
 
@@ -8,5 +11,3 @@ O pipeline file contem os passos para necessario para a publicação do projeto.
 ![Passos para a publicaçõa de um projeto](https://miro.medium.com/v2/resize:fit:640/format:webp/1*SGuCtn2Gj_Q1fOg0MjBd9g.png)
 
 
-#### Neste repositorio se encontra os scripts para a publicação dos projetos. Como ja mencionado esses scripts tem o passo a passo dos 
-#### jenkins para fazer a úblicação dos projetos
