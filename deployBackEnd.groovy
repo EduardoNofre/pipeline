@@ -6,7 +6,7 @@ def iniciarDeploy(gitUrl){
 	  
  try {
 		 stage("Build") {
-			deployApp()
+			deployApp(gitUrl)
 		 }
 		 
 		 stage("Code Quality - Sonar") {
@@ -28,14 +28,14 @@ def iniciarDeploy(gitUrl){
 }
 
 
-def deployApp() {
+def deployApp(gitUrl) {
 
       echo " -------------------------------------- "
       echo " ----------- STEP INICIO BUILD -------- "
       echo " -------------------------------------- "
 
       	// URL REPOSITORIO GIT
-      	git url: "https://github.com/EduardoNofre/digital-config-service.git",
+      	git url: "${gitUrl}",
 
         // NOME DA BRANCH PROD,DEV,QA...etctra
         branch: "develop",
