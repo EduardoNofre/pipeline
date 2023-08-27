@@ -2,7 +2,7 @@
 Se encontra os arquivos para fazer deploy da aplicação versão generica.
 
 # pipeline scripts
-Este repositorio se encontra os scripts para a publicação dos projetos. Esses scripts tem o passo a passo dos jenkins para fazer a públicação dos projetos.
+Este repositorio se encontra os scripts para a publicação dos projetos. Esses scripts tem o passo a passo do jenkins para fazer a públicação dos projetos.
 
 # pipeline file
 O pipeline file contem os passos para necessario para a publicação do projeto.
