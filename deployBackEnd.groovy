@@ -4,3 +4,5 @@ def iniciarDeploy(){
       echo " ----------- INICIAR DEPLOY BUILD ----- "
       echo " -------------------------------------- "
 }
+
+return this
