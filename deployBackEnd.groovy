@@ -1,4 +1,4 @@
-def iniciarDeploy(gitUrl){ 
+def iniciarDeploy(){ 
 
       echo " -------------------------------------- "
       echo " ----------- INICIAR DEPLOY BUILD ----- "
