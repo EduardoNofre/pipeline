@@ -2,10 +2,11 @@
 Neste repositorio se encontra os scripts para fazer deploy da aplicação versão generica.
 
 ### Com os seguintes passos:
-#### 1 - Build: Construção do projeto compilação 
-#### 2 - Code Quality - Sonar: Faz análise do código
-#### 3 - Quality Gate: Verifica se a aplicação atingiu porcentagem definida no sonar/status
-#### 4 - Build Docke: Faz o build da imagem no docker compose
+ 1 - Build: Construção do projeto compilação. 
+ 2 - Code Quality - Sonar: Faz análise do códig.
+ 3 - Quality Gate: Verifica se a aplicação atingiu porcentagem definida no sonar/status.
+ 4 - Build Docke: Faz o build da imagem no docker compose.
+ 5 - Publish Container DEV - Publica no ambiente desejado.
 
 
 # pipeline scripts
