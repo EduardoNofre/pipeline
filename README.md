@@ -2,11 +2,11 @@
 Neste repositorio se encontra os scripts para fazer deploy da aplicação versão generica.
 
 ### Com os seguintes passos:
-#### 1 - Build:
-#### 2 - Code Quality - Sonar:
-#### 3 - Quality Gate:
-#### 4 - Build Docke:
-#### 5 - Publish Container DEV:
+#### 1 - Build: Construção do projeto compilação 
+#### 2 - Code Quality - Sonar: Faz análise do código
+#### 3 - Quality Gate: Verifica se a aplicação atingiu porcentagem definida no sonar/status
+#### 4 - Build Docke: Faz o build da imagem no docker compose
+
 
 # pipeline scripts
 Este repositorio se encontra os scripts para a publicação dos projetos. Esses scripts tem o passo a passo do jenkins para fazer a públicação dos projetos.
