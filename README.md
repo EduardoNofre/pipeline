@@ -1,5 +1,5 @@
-# Este repositorio
-Se encontra os arquivos para fazer deploy da aplicação versão generica.
+# O repositorio
+Neste repositorio se encontra os scripts para fazer deploy da aplicação versão generica.
 
 # pipeline scripts
 Este repositorio se encontra os scripts para a publicação dos projetos. Esses scripts tem o passo a passo do jenkins para fazer a públicação dos projetos.
