@@ -1,6 +1,13 @@
 # O repositorio
 Neste repositorio se encontra os scripts para fazer deploy da aplicação versão generica.
 
+### Maquinas
+  ### Criar o diretorio usando o comando baixo:
+    sudo mkdir -p java/springboot/digital/nome-do-seu-servico
+  ### Instalar o java 11.
+   sudo apt update
+   sudo apt install default-jre
+
 ### Com os seguintes passos:
  #### 1 -  Build: 
  Construção do projeto compilação. 
