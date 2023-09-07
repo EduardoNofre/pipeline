@@ -38,8 +38,10 @@ O pipeline file contem os passos para necessario para a publicação do projeto.
 ![visão](https://www.cloudbees.com/sites/default/files/blog/pipeline-vis.png)
 
 # Criando uma service no linux.
+  
   ### craindo o arquivo digital-config-service.service
     sudo nano /etc/systemd/system/digital-config-service.service.
+  
   ### conteúdo do arquivo
     [Unit]
         Description=Email service
@@ -58,7 +60,7 @@ O pipeline file contem os passos para necessario para a publicação do projeto.
 
   ### Comando para verificar o status do serviço.
       sudo systemctl daemon-reload
-      sudo systemctl start email.service
-      sudo systemctl status email.service
+      sudo systemctl start digital-config-service.service
+      sudo systemctl status digital-config-service.service
     
   
