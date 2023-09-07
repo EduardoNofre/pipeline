@@ -47,19 +47,18 @@ O pipeline file contem os passos para necessario para a publicação do projeto.
 Description= serviço digital-config-service
 After=network.target
 
-[Service]
-  SuccessExitStatus=143
-  User=ubuntu
-  Type=simple
-  Restart=always
-  RestartSec=1
-  StartLimitInterval=0
-  WorkingDirectory=/java/springboot/digital/digital-config-service/
-  ExecStart=/usr/bin/java -jar /java/springboot/digital/digital-config-service/digital-config-service.jar
-  User=ubuntu
-[Install]
-  WantedBy=multi-user.target
-
+[Service]<br>
+  SuccessExitStatus=143<br>
+  User=ubuntu<br>
+  Type=simple<br>
+  Restart=always<br>
+  RestartSec=1<br>
+  StartLimitInterval=0<br>
+  WorkingDirectory=/java/springboot/digital/digital-config-service/<br>
+  ExecStart=/usr/bin/java -jar /java/springboot/digital/digital-config-service/digital-config-service.jar<br>
+  User=ubuntu<br>
+[Install]<br>
+  WantedBy=multi-user.target<br>
     
   #### Obervação: Esse service será chamado  pelo script o nome do arquivo tem que ser o mesmo do script.
 
