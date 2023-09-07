@@ -64,6 +64,7 @@ After=network.target
 
   ### Comando para verificar o status do serviço.
       sudo systemctl daemon-reload
+      sudo systemctl stop digital-config-service.service
       sudo systemctl start digital-config-service.service
       sudo systemctl status digital-config-service.service
     
