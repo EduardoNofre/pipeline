@@ -36,3 +36,29 @@ O pipeline file contem os passos para necessario para a publicação do projeto.
 
 # Uma visão do jenkins
 ![visão](https://www.cloudbees.com/sites/default/files/blog/pipeline-vis.png)
+
+# Criando uma service no linux.
+  ### craindo o arquivo digital-config-service.service
+    sudo nano /etc/systemd/system/digital-config-service.service.
+  ### conteúdo do arquivo
+    [Unit]
+        Description=Email service
+        Requires=network.target remote-fs.target
+        After=network.target remote-fs.target
+    [Service]
+        Type=simple
+        User=ubuntu
+        WorkingDirectory=/opt/apps/
+        ExecStart=/usr/bin/java -jar /opt/apps/email-1.0.0.jar
+        Restart=on-failure
+        RestartSec=10
+    [Install]
+        WantedBy=multi-user.target
+  #### Obervação: Esse service será chamado  pelo script o nome do arquivo tem que ser o mesmo do script.
+
+  ### Comando para verificar o status do serviço.
+      sudo systemctl daemon-reload
+      sudo systemctl start email.service
+      sudo systemctl status email.service
+    
+  
