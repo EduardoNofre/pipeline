@@ -3,6 +3,10 @@ def iniciarDeploy(gitUrl){
       echo " -------------------------------------- "
       echo " ----------- INICIAR DEPLOY BUILD ----- "
       echo " -------------------------------------- "
+
+	 echo  "${params.sonar}"
+	 echo  "${params.profile}" 
+	 echo  "${params.servidor}"
 	  
  try {
 		 stage("Build") {
