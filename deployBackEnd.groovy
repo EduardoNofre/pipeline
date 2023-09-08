@@ -3,10 +3,6 @@ def iniciarDeploy(gitUrl){
       echo " -------------------------------------- "
       echo " ----------- INICIAR DEPLOY BUILD ----- "
       echo " -------------------------------------- "
-
-	 echo  "${params.sonar}"
-	 echo  "${params.profile}" 
-	 echo  "${params.servidor}"
 	  
  try {
 		 stage("Build") {
@@ -185,16 +181,19 @@ def buildDocker(gitUrl) {
      // ---------------------------------------------------------------------------------------------- 
      sshagent(['ACESSO_REMOTO_SSH']) {   	
         	 input 'Publicar em DESENVOLVIMENTO?'
-        	 metodoDeployServer("18.234.106.192", "dev") //springboot - dev
+        	 metodoDeployServer() //springboot - dev
       		 currentBuild.result = 'SUCCESS'
        	}
     }
 
 
+def metodoDeployServer() {
+	
+ echo " ----------- PROFILE ${params.profile}  ------------"
+ echo " --------- SERVIDOR ${params.servidor}  ------------"
 
-def metodoDeployServer(ipServer, profile) {
-  def ambiente = profile
-  def server = ipServer
+  def ambiente = ${params.profile}
+  def server = ${params.servidor}
   def nomeJar = "digital-config-service.jar"
   def nomeProperties = "application.properties"
   def origemDir = "${pwd()}/target"
