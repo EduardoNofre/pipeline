@@ -185,7 +185,7 @@ def buildDocker(gitUrl) {
      // ---------------------------------------------------------------------------------------------- 
      sshagent(['ACESSO_REMOTO_SSH']) {   	
         	 input 'Publicar em DESENVOLVIMENTO?'
-        	 metodoDeployServer("54.205.197.191", "dev") //springboot - dev
+        	 metodoDeployServer("18.234.106.192", "dev") //springboot - dev
       		 currentBuild.result = 'SUCCESS'
        	}
     }
