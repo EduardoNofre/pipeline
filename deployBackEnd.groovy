@@ -192,15 +192,11 @@ def metodoDeployServer() {
  echo " ----------- PROFILE ${params.profile}  ------------"
  echo " --------- SERVIDOR ${params.servidor}  ------------"
 
-  def ambiente = ${params.profile}
-  def server = ${params.servidor}
+  def ambiente = "${params.profile}"
+  def server = "${params.servidor}"
   def nomeJar = "digital-config-service.jar"
   def nomeProperties = "application.properties"
   def origemDir = "${pwd()}/target"
-
- echo " ----------- ambiente ------------" 
- echo " ----------- ambiente ${ambiente}  ------------"
-	
   def destinoDir = "/java/springboot/digital/digital-config-service"
   def msgObjetivo = "Objetivo";
   def msgObjetivo1 = "- Publicar o pacote: ${nomeJar} para ${destinoDir}"
