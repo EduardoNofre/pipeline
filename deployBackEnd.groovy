@@ -202,7 +202,7 @@ def metodoDeployServer() {
   def msgObjetivo1 = "- Publicar o pacote: ${nomeJar} para ${destinoDir}"
   def userNameServer = "ubuntu"
 
- echo " ----------- ambiente ------------"
+ echo " ----------- ambiente ------------" 
  echo " ----------- ambiente ${ambiente}  ------------"
 	
   echo "${msgObjetivo} em [${ambiente}]"
