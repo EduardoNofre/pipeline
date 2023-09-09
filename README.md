@@ -62,7 +62,7 @@ After=network.target
     
   #### Obervação: Esse service será chamado  pelo script o nome do arquivo tem que ser o mesmo do script.
 
-  ### Comando para verificar o status do serviço.
+  ### Comando utilizado para verificar o service linux.
       sudo systemctl daemon-reload
       sudo systemctl stop digital-config-service.service
       sudo systemctl start digital-config-service.service
