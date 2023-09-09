@@ -181,6 +181,10 @@ def buildDocker(gitUrl) {
      // ---------------------------------------------------------------------------------------------- 
      sshagent(['ACESSO_REMOTO_SSH']) {   	
         	 input 'Publicar em DESENVOLVIMENTO?'
+    	echo " ----------------------------------------------------------------------- "
+    	echo " -------------- Publicar no ambiente de ${params.profile} -------------- "
+    	echo " ----------------------------------------------------------------------- "
+	     
         	 metodoDeployServer() //springboot - dev
       		 currentBuild.result = 'SUCCESS'
        	}
