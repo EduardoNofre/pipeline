@@ -180,11 +180,9 @@ def buildDocker(gitUrl) {
      // opção: SSHAGENT : DEVE SER CRIAR UMA CREDENCIAL USANDO SSH  DO SONAR :NAME 'ACESSO_REMOTO_SSH'
      // ---------------------------------------------------------------------------------------------- 
      sshagent(['ACESSO_REMOTO_SSH']) {   	
-        	 input 'Publicar em DESENVOLVIMENTO?'
     	echo " ----------------------------------------------------------------------- "
     	echo " -------------- Publicar no ambiente de ${params.profile} -------------- "
     	echo " ----------------------------------------------------------------------- "
-	     
         	 metodoDeployServer() //springboot - dev
       		 currentBuild.result = 'SUCCESS'
        	}
