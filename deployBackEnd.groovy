@@ -211,23 +211,25 @@ def metodoDeployServer() {
 
   withEnv(["JAVA_HOME=${ tool 'JAVA_HOME_11' }", "PATH+MAVEN=${tool 'M3'}/bin:${env.JAVA_HOME}/bin"]) {
 
-    echo " ----------------------------------------------------------------- "
-    echo " -------------- STOP SERVICE DIGITAL-CONFIG-SERVICE -------------- "
-    echo " ----------------------------------------------------------------- "
-    
-    sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
-    sh "sleep 5"
 
     echo " --------------------------------------------------------------------------- "
-    echo " -------------- MOVENDO O ARQUIVO  DIGITAL-CONFIG-SERVICE.JAR -------------- "
-
-	echo " ----------- ARTERFATO ${nomeJar}  ------------"
-	echo " ----------- ORIGEM ${origemDir}   ------------"
-	echo " ----------- DESTINO ${destinoDir} ------------"
+    echo " ------------------------ MOVENDO O ARQUIVO -------------------------------- "
+    echo " --------------------------------------------------------------------------- "
+    echo " ----------- ARTERFATO ${nomeJar}  ------------"
+    echo " ----------- ORIGEM ${origemDir}   ------------"
+    echo " ----------- DESTINO ${destinoDir} ------------"
 
     sh "scp ${origemDir}/${nomeJar} ${userNameServer}@${server}:${destinoDir}/"
 
- 	echo " ----------------------------------------------------------------------------------- "
+    echo " ----------------------------------------------------------------- "
+    echo " -------------- STOP SERVICE DIGITAL-CONFIG-SERVICE -------------- "
+    echo " ----------------------------------------------------------------- "
+    sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
+    sh "sleep 5"
+
+
+
+    echo " ----------------------------------------------------------------------------------- "
     echo " ---------------------------- TRANSFERIDO COM SUCESSO ------------------------------ "
     echo " ----------------------------------------------------------------------------------- "
      
