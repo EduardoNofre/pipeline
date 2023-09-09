@@ -21,8 +21,8 @@ def iniciarDeploy(gitUrl){
 	 		buildDocker(gitUrl) 
 		}
 	 
-		 stage("Publish Container DEV") {  
-			publishContainerDev()
+		 stage("Publish Container") {  
+			publishContainer()
 		 }
 
  	} finally {
@@ -169,23 +169,23 @@ def buildDocker(gitUrl) {
 	echo "${nomeImagem}"
 }
 	
- def publishContainerDev() {
+ def publishContainer() {
     
       echo " ---------------------------------------------------------- "
-      echo " -------------- INICIO PUBLISH CONTAINER DEV -------------- "
+      echo " ------ INICIO PUBLISH CONTAINER ${params.profile}  ------- "
       echo " ---------------------------------------------------------- "
     
      // ---------------------------------------------------------------------------------------------- 
      // PARA USAR O COMANDO SSHAGENT DEVE INSTALAR O PLUGINS O 'SSH-AGENT' NO JENKINS 
      // opção: SSHAGENT : DEVE SER CRIAR UMA CREDENCIAL USANDO SSH  DO SONAR :NAME 'ACESSO_REMOTO_SSH'
      // ---------------------------------------------------------------------------------------------- 
-     sshagent(['ACESSO_REMOTO_SSH']) {   	
+    // sshagent(['ACESSO_REMOTO_SSH']) {   	
     	echo " ----------------------------------------------------------------------- "
     	echo " -------------- Publicar no ambiente de ${params.profile} -------------- "
     	echo " ----------------------------------------------------------------------- "
-        	 metodoDeployServer() //springboot - dev
+        	 metodoDeployServer() 
       		 currentBuild.result = 'SUCCESS'
-       	}
+     //  	}
     }
 
 
