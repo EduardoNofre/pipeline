@@ -215,7 +215,8 @@ def metodoDeployServer() {
     echo " -------------- STOP SERVICE DIGITAL-CONFIG-SERVICE -------------- "
     echo " ----------------------------------------------------------------- "
 
-    sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
+    sh "sudo systemctl stop digital-config-service.service"
+    //sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
     sh "sleep 5"
 
     echo " --------------------------------------------------------------------------- "
