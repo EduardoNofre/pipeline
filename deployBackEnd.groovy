@@ -190,12 +190,8 @@ def buildDocker(gitUrl) {
        	}
     }
 
-
 def metodoDeployServer() {
 	
- echo " ----------- PROFILE ${params.profile}  ------------"
- echo " --------- SERVIDOR ${params.servidor}  ------------"
-
   def ambiente = "${params.profile}"
   def server = "${params.servidor}"
   def nomeJar = "digital-config-service.jar"
@@ -207,25 +203,23 @@ def metodoDeployServer() {
   def userNameServer = "ubuntu"
 	
   echo "Iniciando publicação em [${ambiente}] com o usuário: ${userNameServer} no servidor: ${server}"
-
   withEnv(["JAVA_HOME=${ tool 'JAVA_HOME_11' }", "PATH+MAVEN=${tool 'M3'}/bin:${env.JAVA_HOME}/bin"]) {
 
      stopService(userNameServer,server)
-	 transferFile(nomeJar,origemDir,destinoDir,userNameServer,server) 
-	 startService(userNameServer,server,nomeJar)
+     transferFile(nomeJar,origemDir,destinoDir,userNameServer,server) 
+     startService(userNameServer,server,nomeJar)
   }
   echo "Fim da publicação em [${ambiente}] "
-  echo ""
 }
 
 def stopService(userNameServer,server) {
 try{
-	    echo " ----------------------------------------------------------------- "
-	    echo " -------------- STOP SERVICE DIGITAL-CONFIG-SERVICE -------------- "
-	    echo " ----------------------------------------------------------------- "
-	    sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
-	   // sh "sshpass ssh ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
-	    sh "sleep 5"
+	echo " ----------------------------------------------------------------- "
+	echo " -------------- STOP SERVICE DIGITAL-CONFIG-SERVICE -------------- "
+	echo " ----------------------------------------------------------------- "
+	sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
+	// sh "sshpass ssh ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
+	sh "sleep 5"
 	} catch (Exception erro) {
             echo "ERRO STOP SERVICE: ${erroParandoContainer}"
       }	
@@ -233,18 +227,18 @@ try{
 
 def transferFile(nomeJar,origemDir,destinoDir,userNameServer,server) {
 try{
-	    echo " --------------------------------------------------------------------------- "
-	    echo " ------------------------ MOVENDO O ARQUIVO -------------------------------- "
-	    echo " --------------------------------------------------------------------------- "
-	    echo " ----------- ARTERFATO ${nomeJar}  ------------"
-	    echo " ----------- ORIGEM ${origemDir}   ------------"
-	    echo " ----------- DESTINO ${destinoDir} ------------"
+	echo " --------------------------------------------------------------------------- "
+	echo " ------------------------ MOVENDO O ARQUIVO -------------------------------- "
+	echo " --------------------------------------------------------------------------- "
+	echo " ----------- ARTERFATO ${nomeJar}  ------------"
+	echo " ----------- ORIGEM ${origemDir}   ------------"
+	echo " ----------- DESTINO ${destinoDir} ------------"
 	
-	    sh "scp ${origemDir}/${nomeJar} ${userNameServer}@${server}:${destinoDir}/"
+	sh "scp ${origemDir}/${nomeJar} ${userNameServer}@${server}:${destinoDir}/"
 	
-	    echo " ----------------------------------------------------------------------------------- "
-	    echo " ---------------------------- TRANSFERIDO COM SUCESSO ------------------------------ "
-	    echo " ----------------------------------------------------------------------------------- "
+	echo " ----------------------------------------------------------------------------------- "
+	echo " ---------------------------- TRANSFERIDO COM SUCESSO ------------------------------ "
+	echo " ----------------------------------------------------------------------------------- "
 
 	} catch (Exception erro) {
             echo "ERRO AO MOVENDO O ARQUIVO: ${erroParandoContainer}"
@@ -253,12 +247,12 @@ try{
 
 def startService(userNameServer,server,nomeJar) {
 try{
-	    echo " ----------------------------------------------------------------------------------- "
-	    echo " -------------- INICIALIZANO O SERVIÇO  DIGITAL-CONFIG-SERVICE.SERICE -------------- "
-	    echo " ----------------------------------------------------------------------------------- "
+	echo " ----------------------------------------------------------------------------------- "
+	echo " -------------- INICIALIZANO O SERVIÇO  DIGITAL-CONFIG-SERVICE.SERICE -------------- "
+	echo " ----------------------------------------------------------------------------------- "
 	
-	    sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl start digital-config-service.service"
-	    echo "Pacote ${nomeJar} publicado com sucesso."
+	sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl start digital-config-service.service"
+	echo "Pacote ${nomeJar} publicado com sucesso."
 
 	} catch (Exception erro) {
             echo "ERRO AO INICIALIZANO O SERVIÇO: ${erroParandoContainer}"
