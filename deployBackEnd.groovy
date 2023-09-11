@@ -25,8 +25,8 @@ def iniciarDeploy(gitUrl){
 			publishContainer()
 		 }
 
-      } catch (Exception e) {
-            echo "${e}"
+      } catch (Exception ex) {
+            echo "${ex}"
             currentBuild.result = 'FAILURE'
       } finally {
             notificarDeploy(gitUrl)
@@ -220,8 +220,7 @@ def stopService(userNameServer,server) {
 	echo " ----------------------------------------------------------------- "
 	echo " -------------- STOP SERVICE DIGITAL-CONFIG-SERVICE -------------- "
 	echo " ----------------------------------------------------------------- "
-	//sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
-	sh "sshpass ssh ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
+	sh "sshpass -p ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
 	sh "sleep 5"
 	} catch (Exception ex) {
             echo "ERRO STOP SERVICE: ${ex}"
