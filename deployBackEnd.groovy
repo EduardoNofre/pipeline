@@ -220,8 +220,8 @@ try{
 	sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
 	// sh "sshpass ssh ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
 	sh "sleep 5"
-	} catch (Exception erro) {
-            echo "ERRO STOP SERVICE: ${erroParandoContainer}"
+	} catch (Exception ex) {
+            echo "ERRO STOP SERVICE: ${ex}"
       }	
 }
 
@@ -240,8 +240,8 @@ try{
 	echo " ---------------------------- TRANSFERIDO COM SUCESSO ------------------------------ "
 	echo " ----------------------------------------------------------------------------------- "
 
-	} catch (Exception erro) {
-            echo "ERRO AO MOVENDO O ARQUIVO: ${erroParandoContainer}"
+	} catch (Exception ex) {
+            echo "ERRO AO MOVENDO O ARQUIVO: ${ex}"
       }	
 }
 
@@ -254,8 +254,8 @@ try{
 	sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl start digital-config-service.service"
 	echo "Pacote ${nomeJar} publicado com sucesso."
 
-	} catch (Exception erro) {
-            echo "ERRO AO INICIALIZANO O SERVIÇO: ${erroParandoContainer}"
+	} catch (Exception ex) {
+            echo "ERRO AO INICIALIZANO O SERVIÇO: ${ex}"
       }
 }
 
