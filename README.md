@@ -10,6 +10,10 @@ Neste repositorio se encontra os scripts para fazer deploy da aplicação versã
    sudo apt update<br>
    sudo apt install default-jre
 
+  ### Instalar sshpass.
+   sudo apt update<br>
+   sudo apt-get install sshpass
+
 ### Com os seguintes passos:
  #### 1 -  Build: 
  Construção do projeto compilação. 
