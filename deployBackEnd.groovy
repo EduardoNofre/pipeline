@@ -5,26 +5,23 @@ def iniciarDeploy(gitUrl){
       echo " -------------------------------------- "
 	  
   try {
-		 stage("Build") {
-			deployApp(gitUrl)
-		 }
-		 
-		 stage("Code Quality - Sonar") {
-			codeQuality()
-		 }
-		 
-		 stage("Quality Gate") {
-			qualityGate()
-		 }
-
-	 	stage("Build Docker") { 
-	 		buildDocker(gitUrl) 
-		}
-	 
-		 stage("Publish Container") {  
-			publishContainer()
-		 }
-
+	stage("Build") {
+		deployApp(gitUrl)
+	}
+	stage("Code Quality - Sonar") {
+		codeQuality()
+	}
+	stage("Quality Gate") {
+		qualityGate()
+	}
+	stage("Build Docker") { 
+	 	buildDocker(gitUrl) 
+	}
+	stage("Publish Container") {  
+		publishContainer()
+	}
+		currentBuild.result = 'SUCCESS'
+	  
       } catch (Exception ex) {
             echo "${ex}"
             currentBuild.result = 'FAILURE'
@@ -173,22 +170,19 @@ def buildDocker(gitUrl) {
 	
  def publishContainer() {
     
-      echo " ---------------------------------------------------------- "
-      echo " ------ INICIO PUBLISH CONTAINER ${params.profile}  ------- "
-      echo " ---------------------------------------------------------- "
+      	echo " ---------------------------------------------------------- "
+      	echo " ------ INICIO PUBLISH CONTAINER ${params.profile}  ------- "
+      	echo " ---------------------------------------------------------- "
     
-     // ---------------------------------------------------------------------------------------------- 
-     // PARA USAR O COMANDO SSHAGENT DEVE INSTALAR O PLUGINS O 'SSH-AGENT' NO JENKINS 
-     // opção: SSHAGENT : DEVE SER CRIAR UMA CREDENCIAL USANDO SSH  DO SONAR :NAME 'ACESSO_REMOTO_SSH'
-     // ---------------------------------------------------------------------------------------------- 
-   //  sshagent(['ACESSO_REMOTO_SSH']) {  
+     	// ---------------------------------------------------------------------------------------------- 
+     	// PARA USAR O COMANDO SSHPASS DEVE INSTALAR NAS INSTACIAS apt-get install sshpass 
+     	// ---------------------------------------------------------------------------------------------- 
 	     
     	echo " ----------------------------------------------------------------------- "
-    	echo " -------------- Publicar no ambiente de ${params.profile} -------------- "
+    	echo " -------------- PUBLICAR NO AMBIENTE DE ${params.profile} -------------- "
     	echo " ----------------------------------------------------------------------- "
-             metodoDeployServer() 
-	     currentBuild.result = 'SUCCESS'
-  //     	}
+    
+    	metodoDeployServer() 
     }
 
 def metodoDeployServer() {
