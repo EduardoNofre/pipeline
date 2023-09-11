@@ -179,13 +179,13 @@ def buildDocker(gitUrl) {
      // PARA USAR O COMANDO SSHAGENT DEVE INSTALAR O PLUGINS O 'SSH-AGENT' NO JENKINS 
      // opção: SSHAGENT : DEVE SER CRIAR UMA CREDENCIAL USANDO SSH  DO SONAR :NAME 'ACESSO_REMOTO_SSH'
      // ---------------------------------------------------------------------------------------------- 
-    // sshagent(['ACESSO_REMOTO_SSH']) {   	
+     sshagent(['ACESSO_REMOTO_SSH']) {   	
     	echo " ----------------------------------------------------------------------- "
     	echo " -------------- Publicar no ambiente de ${params.profile} -------------- "
     	echo " ----------------------------------------------------------------------- "
         	 metodoDeployServer() 
       		 currentBuild.result = 'SUCCESS'
-     //  	}
+       	}
     }
 
 
@@ -204,13 +204,19 @@ def metodoDeployServer() {
   def msgObjetivo1 = "- Publicar o pacote: ${nomeJar} para ${destinoDir}"
   def userNameServer = "ubuntu"
 	
-  echo "${msgObjetivo} em [${ambiente}]"
-  echo "${msgObjetivo1}"
-  echo ""
   echo "Iniciando publicação em [${ambiente}] com o usuário: ${userNameServer} no servidor: ${server}"
 
   withEnv(["JAVA_HOME=${ tool 'JAVA_HOME_11' }", "PATH+MAVEN=${tool 'M3'}/bin:${env.JAVA_HOME}/bin"]) {
 
+     stopService(userNameServer,server)
+	 transferFile(nomeJar,origemDir,destinoDir,userNameServer,server) 
+	 startService(userNameServer,server,nomeJar)
+  }
+  echo "Fim da publicação em [${ambiente}] "
+  echo ""
+}
+
+def stopService(userNameServer,server) {
 
     echo " ----------------------------------------------------------------- "
     echo " -------------- STOP SERVICE DIGITAL-CONFIG-SERVICE -------------- "
@@ -218,6 +224,9 @@ def metodoDeployServer() {
   //  sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
     sh "sshpass ssh ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
     sh "sleep 5"
+}
+
+def transferFile(nomeJar,origemDir,destinoDir,userNameServer,server) {
 
     echo " --------------------------------------------------------------------------- "
     echo " ------------------------ MOVENDO O ARQUIVO -------------------------------- "
@@ -231,17 +240,16 @@ def metodoDeployServer() {
     echo " ----------------------------------------------------------------------------------- "
     echo " ---------------------------- TRANSFERIDO COM SUCESSO ------------------------------ "
     echo " ----------------------------------------------------------------------------------- "
-     
+}
+
+def startService(userNameServer,server,nomeJar) {
+
     echo " ----------------------------------------------------------------------------------- "
     echo " -------------- INICIALIZANO O SERVIÇO  DIGITAL-CONFIG-SERVICE.SERICE -------------- "
     echo " ----------------------------------------------------------------------------------- "
 
     sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl start digital-config-service.service"
     echo "Pacote ${nomeJar} publicado com sucesso."
- 
-  }
-  echo "Fim da publicação em [${ambiente}] - (verifique se será necessário um restart do servidor)"
-  echo ""
 }
 
 return this
