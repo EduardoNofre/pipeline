@@ -186,7 +186,6 @@ def buildDocker(gitUrl) {
     	echo " -------------- Publicar no ambiente de ${params.profile} -------------- "
     	echo " ----------------------------------------------------------------------- "
         	 metodoDeployServer() 
-      		 currentBuild.result = 'SUCCESS'
        	}
     }
 
@@ -220,6 +219,7 @@ try{
 	sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
 	// sh "sshpass ssh ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
 	sh "sleep 5"
+	currentBuild.result = 'SUCCESS'
 	} catch (Exception ex) {
             echo "ERRO STOP SERVICE: ${ex}"
       }	
@@ -239,7 +239,7 @@ try{
 	echo " ----------------------------------------------------------------------------------- "
 	echo " ---------------------------- TRANSFERIDO COM SUCESSO ------------------------------ "
 	echo " ----------------------------------------------------------------------------------- "
-
+	currentBuild.result = 'SUCCESS'
 	} catch (Exception ex) {
             echo "ERRO AO MOVENDO O ARQUIVO: ${ex}"
       }	
@@ -253,7 +253,7 @@ try{
 	
 	sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl start digital-config-service.service"
 	echo "Pacote ${nomeJar} publicado com sucesso."
-
+	currentBuild.result = 'SUCCESS'
 	} catch (Exception ex) {
             echo "ERRO AO INICIALIZANO O SERVIÇO: ${ex}"
       }
