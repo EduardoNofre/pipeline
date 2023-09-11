@@ -181,14 +181,14 @@ def buildDocker(gitUrl) {
      // PARA USAR O COMANDO SSHAGENT DEVE INSTALAR O PLUGINS O 'SSH-AGENT' NO JENKINS 
      // opção: SSHAGENT : DEVE SER CRIAR UMA CREDENCIAL USANDO SSH  DO SONAR :NAME 'ACESSO_REMOTO_SSH'
      // ---------------------------------------------------------------------------------------------- 
-     sshagent(['ACESSO_REMOTO_SSH']) {  
+   //  sshagent(['ACESSO_REMOTO_SSH']) {  
 	     
     	echo " ----------------------------------------------------------------------- "
     	echo " -------------- Publicar no ambiente de ${params.profile} -------------- "
     	echo " ----------------------------------------------------------------------- "
              metodoDeployServer() 
 	     currentBuild.result = 'SUCCESS'
-       	}
+  //     	}
     }
 
 def metodoDeployServer() {
