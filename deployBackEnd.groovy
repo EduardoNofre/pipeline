@@ -216,21 +216,20 @@ def metodoDeployServer() {
 }
 
 def stopService(userNameServer,server) {
-try{
+    try{
 	echo " ----------------------------------------------------------------- "
 	echo " -------------- STOP SERVICE DIGITAL-CONFIG-SERVICE -------------- "
 	echo " ----------------------------------------------------------------- "
 	sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
 	// sh "sshpass ssh ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
 	sh "sleep 5"
-	currentBuild.result = 'SUCCESS'
 	} catch (Exception ex) {
             echo "ERRO STOP SERVICE: ${ex}"
       }	
 }
 
 def transferFile(nomeJar,origemDir,destinoDir,userNameServer,server) {
-try{
+    try{
 	echo " --------------------------------------------------------------------------- "
 	echo " ------------------------ MOVENDO O ARQUIVO -------------------------------- "
 	echo " --------------------------------------------------------------------------- "
@@ -243,31 +242,32 @@ try{
 	echo " ----------------------------------------------------------------------------------- "
 	echo " ---------------------------- TRANSFERIDO COM SUCESSO ------------------------------ "
 	echo " ----------------------------------------------------------------------------------- "
-	currentBuild.result = 'SUCCESS'
 	} catch (Exception ex) {
             echo "ERRO AO MOVENDO O ARQUIVO: ${ex}"
       }	
 }
 
 def startService(userNameServer,server,nomeJar) {
-try{
+    try{
 	echo " ----------------------------------------------------------------------------------- "
 	echo " -------------- INICIALIZANO O SERVIÇO  DIGITAL-CONFIG-SERVICE.SERICE -------------- "
 	echo " ----------------------------------------------------------------------------------- "
 	
 	sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl start digital-config-service.service"
 	echo "Pacote ${nomeJar} publicado com sucesso."
-	currentBuild.result = 'SUCCESS'
 	} catch (Exception ex) {
             echo "ERRO AO INICIALIZANO O SERVIÇO: ${ex}"
       }
 }
 
 def notificarDeploy(gitUrl){
-	
+ try{	
 	echo " ----------------------------------------------------------------------------------- "
 	echo " -------------------- METODO NOTIFICARDEPLOY TO DO ENVIAR EMAIL -------------------- "
-	echo " ----------------------------------------------------------------------------------- "	
+	echo " ----------------------------------------------------------------------------------- "
+	} catch (Exception ex) {
+            echo "ERRO AO NOTIFICAR DEPLOY : ${ex}"
+      }
 }
 
 return this
