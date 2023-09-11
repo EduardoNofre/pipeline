@@ -213,7 +213,7 @@ def metodoDeployServer() {
      echo "--------------FIM DA PUBLICAÇÃO EM [${ambiente}] ----------------- "
      echo " ----------------------------------------------------------------- "
   }
-}
+} 
 
 def stopService(userNameServer,server) {
     try{
@@ -221,6 +221,8 @@ def stopService(userNameServer,server) {
 	echo " -------------- STOP SERVICE DIGITAL-CONFIG-SERVICE -------------- "
 	echo " ----------------------------------------------------------------- "
 	sh "sshpass -p ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
+
+	sh "sshpass -p ${userNameServer} ssh ${userNameServer}@${servidor} sudo systemctl stop digital-config-service.service"
 	sh "sleep 5"
 	} catch (Exception ex) {
             echo "ERRO STOP SERVICE: ${ex}"
