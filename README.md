@@ -5,9 +5,13 @@ Acredito também que a ajuda é muito mais valiosa se for partilhada publicament
 ## O scripts pipeline
 - Neste repositorio se encontra os scripts para fazer deploy da aplicação versão generica.
 
-## pipeline file
+## Pipeline file
 O pipeline file contem os passos para necessario para a publicação do projeto.
 O Jenkins file um arquivo de texto que contém a definição de um Pipeline Jenkins e é verificado no controle de origem. Considere o pipeline entrega contínua de com estagios estágios.
+
+## Service back-end
+- Todos os serviços back-end tem que ter o arquivo chamado jenkins file.
+  O jenkins file faz a chamada do deployBackEnd.groovy que é um script que deve conter algumas fase de publicação do Jenkins.
 
 ## Com os seguintes passos:
  #### 1 -  Build: 
@@ -20,8 +24,7 @@ O Jenkins file um arquivo de texto que contém a definição de um Pipeline Jenk
  - Faz o build da imagem no docker compose.
  #### 5 - Publish Container 
  - Publica no ambiente desejado.
-## pipeline scripts
-Este repositorio se encontra os scripts para a publicação dos projetos. Esses scripts tem o passo a passo do jenkins para fazer a públicação dos projetos.
+
 #### Obervação: os scripts aqui depositado devem ter a extensão *.groove.
 
 ### Exemplos do passos de publicação  de um projeto.
