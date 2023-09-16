@@ -16,7 +16,6 @@ Neste repositorio se encontra os scripts para fazer deploy da aplicação versã
  - Faz o build da imagem no docker compose.
  #### 5 - Publish Container 
  - Publica no ambiente desejado.
- - 
 ## pipeline scripts
 Este repositorio se encontra os scripts para a publicação dos projetos. Esses scripts tem o passo a passo do jenkins para fazer a públicação dos projetos.
 #### Obervação: os scripts aqui depositado devem ter a extensão *.groove.
