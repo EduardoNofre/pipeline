@@ -17,8 +17,8 @@ O Jenkins file um arquivo de texto que contém a definição de um Pipeline Jenk
 
 ![OCR](jenkinsFile.PNG)
 
-
-
+- observe que na imagem acima o jenkinsFile aponta para um repositorio no github, neste diretorio o mesmo aponta para um determinado script.
+  
 ## Com os seguintes passos:
  #### 1 -  Build: 
  - Construção do projeto compilação. 
