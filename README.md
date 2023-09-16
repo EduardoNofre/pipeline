@@ -2,8 +2,12 @@
 Este projeto é mantido por Eduardo Nofre. Por favor, entenda que não poderemos fornecer suporte individual por e-mail. 
 Acredito também que a ajuda é muito mais valiosa se for partilhada publicamente, para que mais pessoas possam beneficiar dela.
 
-## O repositorio
-Neste repositorio se encontra os scripts para fazer deploy da aplicação versão generica.
+## O scripts pipeline
+- Neste repositorio se encontra os scripts para fazer deploy da aplicação versão generica.
+
+# pipeline file
+O pipeline file contem os passos para necessario para a publicação do projeto.
+O Jenkins file um arquivo de texto que contém a definição de um Pipeline Jenkins e é verificado no controle de origem. Considere o pipeline entrega contínua de com estagios estágios.
 
 ## Com os seguintes passos:
  #### 1 -  Build: 
@@ -19,9 +23,6 @@ Neste repositorio se encontra os scripts para fazer deploy da aplicação versã
 ## pipeline scripts
 Este repositorio se encontra os scripts para a publicação dos projetos. Esses scripts tem o passo a passo do jenkins para fazer a públicação dos projetos.
 #### Obervação: os scripts aqui depositado devem ter a extensão *.groove.
-
-# pipeline file
-O pipeline file contem os passos para necessario para a publicação do projeto.
 
 ### Exemplos do passos de publicação  de um projeto.
 ![Passos para a publicaçõa de um projeto](https://miro.medium.com/v2/resize:fit:640/format:webp/1*SGuCtn2Gj_Q1fOg0MjBd9g.png)
