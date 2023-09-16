@@ -1,7 +1,11 @@
-# O repositorio
+## Support & Feedback
+Este projeto é mantido por Eduardo Nofre. Por favor, entenda que não poderemos fornecer suporte individual por e-mail. 
+Acredito também que a ajuda é muito mais valiosa se for partilhada publicamente, para que mais pessoas possam beneficiar dela.
+
+## O repositorio
 Neste repositorio se encontra os scripts para fazer deploy da aplicação versão generica.
 
-### Maquinas
+## Maquinas
   ### Criar o diretorio usando o comando baixo:
     sudo mkdir -p java/springboot/digital/nome-do-seu-servico
     Da permissão na pasta  do nome-do-seu-servico
@@ -14,39 +18,39 @@ Neste repositorio se encontra os scripts para fazer deploy da aplicação versã
    sudo apt update<br>
    sudo apt-get install sshpass
 
-### Com os seguintes passos:
+## Com os seguintes passos:
  #### 1 -  Build: 
- Construção do projeto compilação. 
+ - Construção do projeto compilação. 
  #### 2 - Code Quality - Sonar: 
- Faz análise do códig.
+ - Faz análise do códig.
  #### 3 - Quality Gate: 
- Verifica se a aplicação atingiu porcentagem definida no sonar/status.
+ - Verifica se a aplicação atingiu porcentagem definida no sonar/status.
  #### 4 - Build Docke: 
- Faz o build da imagem no docker compose.
- #### 5 - Publish Container DEV - 
- Publica no ambiente desejado.
+ - Faz o build da imagem no docker compose.
+ #### 5 - Publish Container 
+ - Publica no ambiente desejado.
 
 
-# pipeline scripts
+## pipeline scripts
 Este repositorio se encontra os scripts para a publicação dos projetos. Esses scripts tem o passo a passo do jenkins para fazer a públicação dos projetos.
 #### Obervação: os scripts aqui depositado devem ter a extensão *.groove.
 
 # pipeline file
 O pipeline file contem os passos para necessario para a publicação do projeto.
 
-#### Exemplos do passos de publicação  de um projeto.
+### Exemplos do passos de publicação  de um projeto.
 ![Passos para a publicaçõa de um projeto](https://miro.medium.com/v2/resize:fit:640/format:webp/1*SGuCtn2Gj_Q1fOg0MjBd9g.png)
 
 
 # Uma visão do jenkins
 ![visão](https://www.cloudbees.com/sites/default/files/blog/pipeline-vis.png)
 
-# Criando uma service no linux.
+## Criando uma service no linux.
   
   ### craindo o arquivo digital-config-service.service
     sudo nano /etc/systemd/system/digital-config-service.service.
   
-  ### conteúdo do arquivo
+### conteúdo do arquivo
 [Unit]
 Description= serviço digital-config-service
 After=network.target
@@ -64,12 +68,13 @@ After=network.target
 [Install]<br>
   WantedBy=multi-user.target<br>
     
-  #### Obervação: Esse service será chamado  pelo script o nome do arquivo tem que ser o mesmo do script.
+### Obervação: 
+  - Esse service será chamado  pelo script o nome do arquivo tem que ser o mesmo do script.
 
   ### Comando utilizado para verificar o service linux.
-      sudo systemctl daemon-reload
-      sudo systemctl stop digital-config-service.service
-      sudo systemctl start digital-config-service.service
-      sudo systemctl status digital-config-service.service
+      - sudo systemctl daemon-reload
+      - sudo systemctl stop digital-config-service.service
+      - sudo systemctl start digital-config-service.service
+      - sudo systemctl status digital-config-service.service
     
   
