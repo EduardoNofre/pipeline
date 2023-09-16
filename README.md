@@ -8,6 +8,7 @@ Neste repositorio se encontra os scripts para fazer deploy da aplicação versã
 <h1 align="center">
     Para cada maquinas AWS criar
 </h1>
+
   ### Criar o diretorio usando o comando baixo:
     - sudo mkdir -p java/springboot/digital/nome-do-seu-servico da permissão na pasta  do nome-do-seu-servico
     - chmod -R 777 nome-do-seu-servico
