@@ -5,50 +5,6 @@ Acredito também que a ajuda é muito mais valiosa se for partilhada publicament
 ## O repositorio
 Neste repositorio se encontra os scripts para fazer deploy da aplicação versão generica.
 
-<h1 align="center">
-    Para cada maquinas AWS criar
-</h1>
-
-  ### Criar o diretorio usando o comando baixo:
-    sudo mkdir -p java/springboot/digital/nome-do-seu-servico da permissão na pasta  do nome-do-seu-servico
-    chmod -R 777 nome-do-seu-servico
-  ### Instalar o java 11.
-   - sudo apt update
-   - sudo apt install default-jre
-  ### Instalar sshpass.
-   - sudo apt update<br>
-   - sudo apt-get install sshpass
-
-## Criando uma service no linux.
-  - sudo nano /etc/systemd/system/nome-da-sua-service.service.
-  
-## conteúdo do arquivo service
-[Unit]
-Description= serviço digital-config-service
-After=network.target
-
-[Service]<br>
-  SuccessExitStatus=143<br>
-  User=ubuntu<br>
-  Type=simple<br>
-  Restart=always<br>
-  RestartSec=1<br>
-  StartLimitInterval=0<br>
-  WorkingDirectory=/java/springboot/digital/digital-config-service/<br>
-  ExecStart=/usr/bin/java -jar /java/springboot/digital/digital-config-service/digital-config-service.jar<br>
-  User=ubuntu<br>
-[Install]<br>
-  WantedBy=multi-user.target<br>
-    
-## Obervação: 
-  - Esse service será chamado  pelo script o nome do arquivo tem que ser o mesmo do script.
-
-## Comando utilizado para verificar o service linux.
-  - sudo systemctl daemon-reload
-  - sudo systemctl stop digital-config-service.service
-  - sudo systemctl start digital-config-service.service
-  - sudo systemctl status digital-config-service.service
-
 ## Com os seguintes passos:
  #### 1 -  Build: 
  - Construção do projeto compilação. 
