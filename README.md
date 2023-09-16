@@ -47,7 +47,7 @@ O pipeline file contem os passos para necessario para a publicação do projeto.
 ## Criando uma service no linux.
   - sudo nano /etc/systemd/system/nome-da-sua-service.service.
   
-### conteúdo do arquivo
+## conteúdo do arquivo service
 [Unit]
 Description= serviço digital-config-service
 After=network.target
@@ -65,10 +65,10 @@ After=network.target
 [Install]<br>
   WantedBy=multi-user.target<br>
     
-### Obervação: 
+## Obervação: 
   - Esse service será chamado  pelo script o nome do arquivo tem que ser o mesmo do script.
 
-### Comando utilizado para verificar o service linux.
+## Comando utilizado para verificar o service linux.
   - sudo systemctl daemon-reload
   - sudo systemctl stop digital-config-service.service
   - sudo systemctl start digital-config-service.service
