@@ -10,8 +10,8 @@ Neste repositorio se encontra os scripts para fazer deploy da aplicação versã
 </h1>
 
   ### Criar o diretorio usando o comando baixo:
-    - sudo mkdir -p java/springboot/digital/nome-do-seu-servico da permissão na pasta  do nome-do-seu-servico
-    - chmod -R 777 nome-do-seu-servico
+    sudo mkdir -p java/springboot/digital/nome-do-seu-servico da permissão na pasta  do nome-do-seu-servico
+    chmod -R 777 nome-do-seu-servico
   ### Instalar o java 11.
    - sudo apt update
    - sudo apt install default-jre
