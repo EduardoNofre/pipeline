@@ -5,7 +5,7 @@ Acredito também que a ajuda é muito mais valiosa se for partilhada publicament
 ## O scripts pipeline
 - Neste repositorio se encontra os scripts para fazer deploy da aplicação versão generica.
 
-# pipeline file
+## pipeline file
 O pipeline file contem os passos para necessario para a publicação do projeto.
 O Jenkins file um arquivo de texto que contém a definição de um Pipeline Jenkins e é verificado no controle de origem. Considere o pipeline entrega contínua de com estagios estágios.
 
