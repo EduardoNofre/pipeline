@@ -7,16 +7,15 @@ Neste repositorio se encontra os scripts para fazer deploy da aplicação versã
 
 ## Maquinas
   ### Criar o diretorio usando o comando baixo:
-    sudo mkdir -p java/springboot/digital/nome-do-seu-servico
-    Da permissão na pasta  do nome-do-seu-servico
-    chmod -R 777 nome-do-seu-servico
+    - sudo mkdir -p java/springboot/digital/nome-do-seu-servico da permissão na pasta  do nome-do-seu-servico
+    - chmod -R 777 nome-do-seu-servico
   ### Instalar o java 11.
-   sudo apt update<br>
-   sudo apt install default-jre
+   - sudo apt update<br>
+   - sudo apt install default-jre
 
   ### Instalar sshpass.
-   sudo apt update<br>
-   sudo apt-get install sshpass
+   - sudo apt update<br>
+   - sudo apt-get install sshpass
 
 ## Com os seguintes passos:
  #### 1 -  Build: 
@@ -46,9 +45,7 @@ O pipeline file contem os passos para necessario para a publicação do projeto.
 ![visão](https://www.cloudbees.com/sites/default/files/blog/pipeline-vis.png)
 
 ## Criando uma service no linux.
-  
-  ### craindo o arquivo digital-config-service.service
-    sudo nano /etc/systemd/system/digital-config-service.service.
+  - sudo nano /etc/systemd/system/nome-da-sua-service.service.
   
 ### conteúdo do arquivo
 [Unit]
@@ -71,10 +68,10 @@ After=network.target
 ### Obervação: 
   - Esse service será chamado  pelo script o nome do arquivo tem que ser o mesmo do script.
 
-  ### Comando utilizado para verificar o service linux.
-      - sudo systemctl daemon-reload
-      - sudo systemctl stop digital-config-service.service
-      - sudo systemctl start digital-config-service.service
-      - sudo systemctl status digital-config-service.service
+### Comando utilizado para verificar o service linux.
+  - sudo systemctl daemon-reload
+  - sudo systemctl stop digital-config-service.service
+  - sudo systemctl start digital-config-service.service
+  - sudo systemctl status digital-config-service.service
     
   
