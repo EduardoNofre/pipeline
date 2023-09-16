@@ -13,6 +13,12 @@ O Jenkins file um arquivo de texto que contém a definição de um Pipeline Jenk
 - Todos os serviços back-end tem que ter o arquivo chamado jenkins file.
   O jenkins file faz a chamada do deployBackEnd.groovy que é um script que deve conter algumas fase de publicação do Jenkins.
 
+## Veja a imagem abaixo o arquivo jenkins file e seu conteudo.
+
+![OCR](jenkinsFile.PNG)
+
+
+
 ## Com os seguintes passos:
  #### 1 -  Build: 
  - Construção do projeto compilação. 
