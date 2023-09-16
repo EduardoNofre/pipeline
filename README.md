@@ -13,7 +13,7 @@ Neste repositorio se encontra os scripts para fazer deploy da aplicação versã
     - sudo mkdir -p java/springboot/digital/nome-do-seu-servico da permissão na pasta  do nome-do-seu-servico
     - chmod -R 777 nome-do-seu-servico
   ### Instalar o java 11.
-   - sudo apt update<br>
+   - sudo apt update
    - sudo apt install default-jre
   ### Instalar sshpass.
    - sudo apt update<br>
