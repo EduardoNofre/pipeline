@@ -49,7 +49,7 @@ def deployApp(gitUrl) {
         // TOKEN CRIADO NO GIT E ASSOCIADO AO JNEKINS
         // DEVE SER CRIAR UMA CREDENCIAL USANDO USUARIO E SENHA  DO GITHUB :NAME 'github-jenkin'
         // ---------------------------------------------------------------------------------------------- 
-        credentialsId: "github-jenkins"
+        credentialsId: "Jenkins-acess-gitHub"
 
       	// NOME PROPERTIES DA APLICAÇAO.
       	def nomeProperties = "application.properties"
