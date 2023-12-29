@@ -43,13 +43,13 @@ def deployApp(gitUrl) {
       	git url: "${gitUrl}",
 
         // NOME DA BRANCH PROD,DEV,QA...etctra
-        branch: "develop",
+        branch: "Master",
 
         // ---------------------------------------------------------------------------------------------- 
         // TOKEN CRIADO NO GIT E ASSOCIADO AO JNEKINS
         // DEVE SER CRIAR UMA CREDENCIAL USANDO USUARIO E SENHA  DO GITHUB :NAME 'github-jenkin'
         // ---------------------------------------------------------------------------------------------- 
-        credentialsId: "github-jenkins"
+        credentialsId: "Jenkins-acess-gitHub"
 
       	// NOME PROPERTIES DA APLICAÇAO.
       	def nomeProperties = "application.properties"
