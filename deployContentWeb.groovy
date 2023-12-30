@@ -118,7 +118,7 @@ def deployAppServer() {
 
 
 // ---------------------------------------------------------------------------------------------- 
-// METODO: QUE FAZ O STOP DO SERVIÇO.
+// METODO: QUE FAZ O STOP DA APLICAÇÃO.
 // ----------------------------------------------------------------------------------------------  
 def stopService(userNameServer,server) {
     try{
