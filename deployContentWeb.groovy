@@ -4,36 +4,27 @@ def iniciarDeploy(gitUrl){
       echo " ----------- INICIAR DEPLOY BUILD ----- "
       echo " -------------------------------------- "
 	  
-  try {
-  
-	stage("Build") {
-		deployApp(gitUrl)
-	}
-	
-	 //stage("Code Quality - Sonar") {
-	 //	codeQuality()
-	 //}
-	 //stage("Quality Gate") {
-	 //	qualityGate()
-	 //}
-	 //stage("Build Docker") { 
-	 // 	buildDocker(gitUrl) 
-	 //}
-	 //stage("Publish Container") {  
-	 //	publishContainer()
-	 //}
-		currentBuild.result = 'SUCCESS'
+	 try {
+			stage(" Construir ") {
+				buildApp(gitUrl)
+			}
+			
+			stage(" Publicar no servidor") {
+				deployAppServer();
+			}
+			
+			currentBuild.result = 'SUCCESS'
 	  
-      } catch (Exception ex) {
-            echo "${ex}"
-            currentBuild.result = 'FAILURE'
-      } finally {
-            notificarDeploy(gitUrl)
-      }
-}
+		} catch (Exception ex) {
+			echo "${ex}"
+			currentBuild.result = 'FAILURE'
+		} finally {
+           notificarDeploy(gitUrl)
+		}
+	}
 
 
-def deployApp(gitUrl) {
+def buildApp(gitUrl) {
 
       echo " -------------------------------------- "
       echo " ----------- STEP INICIO BUILD -------- "
@@ -61,9 +52,9 @@ def deployApp(gitUrl) {
       	def pom = readMavenPom file: 'pom.xml'
 
       	if (pom) {
-        	echo "Building Version ${pom.version}"
+        	echo "Versão de construção ${pom.version}"
       	} else {
-        	echo "Impossible to get the project properties. Ensure your pom exists."
+        	echo "Impossível obter as propriedades do projeto. Certifique-se de que seu pom exista."
         	sh "exit 1"
       }
 
@@ -76,7 +67,8 @@ def deployApp(gitUrl) {
       // CONFGIRUAR O JAVA HOME NO MAQUINA ONDE ESTA INSTALADO O JENKINS NO MEU CASO 'JAVA_HOME_11' JRE FOI CONFIGURADO VARIAVEL DE AMBIENTE JAVA 
       // CONFGIRUAR O MAVEM HOME NO MAQUINA ONDE ESTA INSTALADO O JENKINS NO MEU CASO 'M3' FOI CONFIGURADO INSTALAR O MAVEM NA MAQUINA VARIAVEL DE AMBIENTE MAVEN
       // ---------------------------------------------------------------------------------------------- 
-      withEnv(["JAVA_HOME=${ tool 'JAVA_HOME_11' }", "PATH+MAVEN=${tool 'M3'}/bin:${env.JAVA_HOME}/bin"]) {
+      
+	  withEnv(["JAVA_HOME=${ tool 'JAVA_HOME_11' }", "PATH+MAVEN=${tool 'M3'}/bin:${env.JAVA_HOME}/bin"]) {
         sh "rm -f ${pwd()}/src/main/resources/${nomeProperties}"
         sh "mvn --batch-mode -V -U -e clean org.jacoco:jacoco-maven-plugin:prepare-agent verify -Dsurefire.useFile=false -Dskip.failsafe.tests=true"
       }
@@ -95,116 +87,24 @@ def deployApp(gitUrl) {
       echo " -------------------------------------- "
     }
 
-def codeQuality() {
-
-      echo " --------------------------------------------------- "
-      echo " ----------- STEP INICIO SONAR CODE QUALITY -------- "
-      echo " --------------------------------------------------- "
-
-      withEnv(["JAVA_HOME=${tool 'JAVA_HOME_11'}", "PATH+MAVEN=${tool 'M3'}/bin:${env.JAVA_HOME}/bin"]) {
-
-        // --------------------------------------------------------------------------------------------------------------------------------------------------------- 
-        // TOKEN 'SECRET TEXT' CRIADO NO SONAR E ASSOCIADO AO JNEKINS
-        // STEP-01: CAMINHO PIPELINE SYNTAX : PAINEL DE CONTROLE> OCR-BRASIL> DIGITAL-CONFIG-SERVICE> PIPELINE SYNTAX ACHAR A SEÇÃO  'Sample Step'
-        //		 opção: withSonarQubeEnv : DEVE SER CRIAR UMA CREDENCIAL USANDO SECRET TEXT DO SONAR :NAME 'SONAR_SERVER'
-        // --------------------------------------------------------------------------------------------------------------------------------------------------------- 
-        withCredentials([usernamePassword(
-          credentialsId: 'SONAR_PEPILINE',
-          passwordVariable: 'SONAR_PASS',
-          usernameVariable: 'SONAR_USER')]) {
-
-          //----------------------------------------------------------------------------------------------------------------------------------------------------------
-          // TOKEN 'SECRET TEXT' CRIADO NO SONAR E ASSOCIADO AO JNEKINS
-          // STEP-02: CAMINHO SONAR SERVE DENTRO DO JENKINS : PAINEL DE CONTROLE > GERENCIAR JENKINS > SYSTEM, ACHAR A SEÇÃO  'SONARQUBE SERVERS'
-          // 		  DEVE SER CRIAR UMA CREDENCIAL USANDO SECRET TEXT DO SONAR :NAME 'SONAR_SERVER'   
-          // --------------------------------------------------------------------------------------------------------------------------------------------------------- 
-          withSonarQubeEnv('SONAR_SERVER') {
-            sh "mvn --batch-mode -V -U -e ${SONAR_MAVEN_GOAL} -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=${SONAR_USER} -Dsonar.password=${SONAR_PASS}"
-            def props = readProperties file: 'target/sonar/report-task.txt'
-            env.SONAR_CE_TASK_URL = props['ceTaskUrl']
-            echo env.SONAR_CE_TASK_URL
-          }
-        }
-      }
-
-      echo " --------------------------------------------------- "
-      echo " ----------- STEP FIM SONAR CODE QUALITY ----------- "
-      echo " --------------------------------------------------- "
-    }
-
- def qualityGate() {
-
-      echo " --------------------------------------------------- "
-      echo " -------------- STEP INICIO QUALITY GATE ----------- "
-      echo " --------------------------------------------------- "
-
-      withSonarQubeEnv('SONAR_SERVER') {
-        def ceTask
-        timeout(time: 1, unit: 'MINUTES') {
-          waitUntil {
-            sh 'curl -u $SONAR_AUTH_TOKEN $SONAR_CE_TASK_URL -o ceTask.json'
-            ceTask = readJSON file: 'ceTask.json'
-            echo ceTask.toString()
-            return "SUCCESS".equals(ceTask["task"]["status"])
-          }
-        }
-        def qualityGateUrl = env.SONAR_HOST_URL + "/api/qualitygates/project_status?analysisId=" + ceTask["task"]["analysisId"]
-        echo qualityGateUrl
-        sh "curl -u $SONAR_AUTH_TOKEN $qualityGateUrl -o qualityGate.json"
-        def qualitygate = readJSON file: 'qualityGate.json'
-        echo qualitygate.toString()
-        if ("ERROR".equals(qualitygate["projectStatus"]["status"])) {
-          error "Quality Gate failure - check Sonar !!! "
-        }
-        echo "Quality Gate success"
-      }
-
-      echo " --------------------------------------------------- "
-      echo " -------------- STEP FIM QUALITY GATE -------------- "
-      echo " --------------------------------------------------- "
-    }
-
-def buildDocker(gitUrl) {
-	def nomeImagem = gitUrl.tokenize('/').last().split("\\.")[0]
-	echo "NOME DA IMAGEM QUE SERA PUBLICADA NO DOCKER"
-	echo "${nomeImagem}"
-}
-	
- def publishContainer() {
-    
-      	echo " ---------------------------------------------------------- "
-      	echo " ------ INICIO PUBLISH CONTAINER ${params.profile}  ------- "
-      	echo " ---------------------------------------------------------- "
-    
-     	// ---------------------------------------------------------------------------------------------- 
-     	// PARA USAR O COMANDO SSHPASS DEVE INSTALAR NAS INSTACIAS apt-get install sshpass 
-     	// ---------------------------------------------------------------------------------------------- 
-	     
-    	echo " ----------------------------------------------------------------------- "
-    	echo " -------------- PUBLICAR NO AMBIENTE DE ${params.profile} -------------- "
-    	echo " ----------------------------------------------------------------------- "
-    
-    	metodoDeployServer() 
-    }
-
-def metodoDeployServer() {
+def deployAppServer() {
 	
   def ambiente = "${params.profile}"
   def server = "${params.servidor}"
-  def nomeJar = "digital-config-service.jar"
+  def nomeWar = "Content-Integracao.war"
   def nomeProperties = "application.properties"
   def origemDir = "${pwd()}/target"
-  def destinoDir = "/java/springboot/digital/digital-config-service"
+  def destinoDir = "/java/content/integracao/web"
   def msgObjetivo = "Objetivo";
-  def msgObjetivo1 = "- Publicar o pacote: ${nomeJar} para ${destinoDir}"
-  def userNameServer = "ubuntu"
+  def msgObjetivo1 = "- Publicar o pacote: ${nomeWar} para ${destinoDir}"
+  def userNameServer = "root"
 	
   echo "Iniciando publicação em [${ambiente}] com o usuário: ${userNameServer} no servidor: ${server}"
   withEnv(["JAVA_HOME=${ tool 'JAVA_HOME_11' }", "PATH+MAVEN=${tool 'M3'}/bin:${env.JAVA_HOME}/bin"]) {
 
      stopService(userNameServer,server)
-     transferFile(nomeJar,origemDir,destinoDir,userNameServer,server) 
-     startService(userNameServer,server,nomeJar)
+     transferFile(nomeWar,origemDir,destinoDir,userNameServer,server) 
+     startService(userNameServer,server,nomeWar)
      echo " ----------------------------------------------------------------- "
      echo "--------------FIM DA PUBLICAÇÃO EM [${ambiente}] ----------------- "
      echo " ----------------------------------------------------------------- "
@@ -225,33 +125,33 @@ def stopService(userNameServer,server) {
       }	
 }
 
-def transferFile(nomeJar,origemDir,destinoDir,userNameServer,server) {
+def transferFile(nomeWar,origemDir,destinoDir,userNameServer,server) {
     try{
 	echo " --------------------------------------------------------------------------- "
 	echo " ------------------------ MOVENDO O ARQUIVO -------------------------------- "
 	echo " --------------------------------------------------------------------------- "
-	echo " ----------- ARTERFATO ${nomeJar}  ------------"
+	echo " ----------- ARTERFATO ${nomeWar}  ------------"
 	echo " ----------- ORIGEM ${origemDir}   ------------"
 	echo " ----------- DESTINO ${destinoDir} ------------"
 	
-	sh "scp ${origemDir}/${nomeJar} ${userNameServer}@${server}:${destinoDir}/"
+	sh "scp ${origemDir}/${nomeWar} ${userNameServer}@${server}:${destinoDir}/"
 	
 	echo " ----------------------------------------------------------------------------------- "
 	echo " ---------------------------- TRANSFERIDO COM SUCESSO ------------------------------ "
 	echo " ----------------------------------------------------------------------------------- "
 	} catch (Exception ex) {
-            echo "ERRO AO MOVENDO O ARQUIVO: ${ex}"
+            echo "ERRO AO MOVER O ARQUIVO: ${ex}"
       }	
 }
 
-def startService(userNameServer,server,nomeJar) {
+def startService(userNameServer,server,nomeWar) {
     try{
 	echo " ----------------------------------------------------------------------------------- "
 	echo " -------------- INICIALIZANO O SERVIÇO  DIGITAL-CONFIG-SERVICE.SERICE -------------- "
 	echo " ----------------------------------------------------------------------------------- "
 	
 	sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl start digital-config-service.service"
-	echo "Pacote ${nomeJar} publicado com sucesso."
+	echo "Pacote ${nomeWar} publicado com sucesso."
 	} catch (Exception ex) {
             echo "ERRO AO INICIALIZANO O SERVIÇO: ${ex}"
       }
