@@ -87,6 +87,11 @@ def buildApp(gitUrl) {
       echo " -------------------------------------- "
     }
 
+
+// ---------------------------------------------------------------------------------------------- 
+// FAZ A LAITURA DO PARAMETROS DO JENKINS  PARAMS.XXX
+// CHAMA OS METODOS STOPSERVICE,TRANSFERFILE E STARTSERVICE
+// ---------------------------------------------------------------------------------------------- 
 def deployAppServer() {
 	
   def ambiente = "${params.profile}"
@@ -99,7 +104,7 @@ def deployAppServer() {
   def msgObjetivo1 = "- Publicar o pacote: ${nomeWar} para ${destinoDir}"
   def userNameServer = "root"
 	
-  echo "Iniciando publicação em [${ambiente}] com o usuário: ${userNameServer} no servidor: ${server}"
+  echo "INICIANDO PUBLICAÇÃO EM [${ambiente}] COM O USUÁRIO: ${userNameServer} NO SERVIDOR: ${server}"
   withEnv(["JAVA_HOME=${ tool 'JAVA_HOME_11' }", "PATH+MAVEN=${tool 'M3'}/bin:${env.JAVA_HOME}/bin"]) {
 
      stopService(userNameServer,server)
@@ -111,6 +116,10 @@ def deployAppServer() {
   }
 } 
 
+
+// ---------------------------------------------------------------------------------------------- 
+// METODO: QUE FAZ O STOP DO SERVIÇO.
+// ----------------------------------------------------------------------------------------------  
 def stopService(userNameServer,server) {
     try{
 	echo " ----------------------------------------------------------------- "
@@ -121,10 +130,13 @@ def stopService(userNameServer,server) {
 	sh "sshpass -p ${userNameServer} ssh ${userNameServer}@${servidor} sudo systemctl stop digital-config-service.service"
 	sh "sleep 5"
 	} catch (Exception ex) {
-            echo "ERRO STOP SERVICE: ${ex}"
+            echo "ERRO STOPSERVICE: ${ex}"
       }	
 }
 
+// ---------------------------------------------------------------------------------------------- 
+// METODO: QUE FAZ A TRANSFERENCIA DO ARTEFATO ' JAR OU WAR ' DE ORIGEM PARA DESTINO. 
+// ---------------------------------------------------------------------------------------------- 
 def transferFile(nomeWar,origemDir,destinoDir,userNameServer,server) {
     try{
 	echo " --------------------------------------------------------------------------- "
@@ -144,6 +156,9 @@ def transferFile(nomeWar,origemDir,destinoDir,userNameServer,server) {
       }	
 }
 
+// ---------------------------------------------------------------------------------------------- 
+// METODO: QUE FAZ O START DA APLICAÇÃO. 
+// ---------------------------------------------------------------------------------------------- 
 def startService(userNameServer,server,nomeWar) {
     try{
 	echo " ----------------------------------------------------------------------------------- "
@@ -153,10 +168,13 @@ def startService(userNameServer,server,nomeWar) {
 	sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl start digital-config-service.service"
 	echo "Pacote ${nomeWar} publicado com sucesso."
 	} catch (Exception ex) {
-            echo "ERRO AO INICIALIZANO O SERVIÇO: ${ex}"
+            echo "ERRO AO INICIALIZAR O SERVIÇO: ${ex}"
       }
 }
 
+// ---------------------------------------------------------------------------------------------- 
+// METODO: PARA ENVIO DE EMAIL. 
+// ---------------------------------------------------------------------------------------------- 
 def notificarDeploy(gitUrl){
  try{	
 	echo " ----------------------------------------------------------------------------------- "
