@@ -27,7 +27,7 @@ def iniciarDeploy(gitUrl){
 def buildApp(gitUrl) {
 
       echo " -------------------------------------- "
-      echo " ----------- STEP INICIO BUILD -------- "
+      echo " --------- PASSO INICIO CONTRUÇÃO ----- "
       echo " -------------------------------------- "
 
       	// URL REPOSITORIO GIT
@@ -64,8 +64,8 @@ def buildApp(gitUrl) {
       }
 
       // ---------------------------------------------------------------------------------------------- 
-      // CONFGIRUAR O JAVA HOME NO MAQUINA ONDE ESTA INSTALADO O JENKINS NO MEU CASO 'JAVA_HOME_11' JRE FOI CONFIGURADO VARIAVEL DE AMBIENTE JAVA 
-      // CONFGIRUAR O MAVEM HOME NO MAQUINA ONDE ESTA INSTALADO O JENKINS NO MEU CASO 'M3' FOI CONFIGURADO INSTALAR O MAVEM NA MAQUINA VARIAVEL DE AMBIENTE MAVEN
+      // CONFGIRUAR O JAVA HOME NA MAQUINA ONDE ESTA INSTALADO O JENKINS NO MEU CASO 'JAVA_HOME_11' JRE FOI CONFIGURADO VARIAVEL DE AMBIENTE JAVA 
+      // CONFGIRUAR O MAVEM HOME NA MAQUINA ONDE ESTA INSTALADO O JENKINS NO MEU CASO 'M3' FOI CONFIGURADO INSTALAR O MAVEM NA MAQUINA VARIAVEL DE AMBIENTE MAVEN
       // ---------------------------------------------------------------------------------------------- 
       
 	  withEnv(["JAVA_HOME=${ tool 'JAVA_HOME_11' }", "PATH+MAVEN=${tool 'M3'}/bin:${env.JAVA_HOME}/bin"]) {
@@ -83,7 +83,7 @@ def buildApp(gitUrl) {
       junit allowEmptyResults: true, testResults: '**/target/surefire-reports/TEST-*.xml'
 
       echo " -------------------------------------- "
-      echo " ----------- STEP FIM BUILD ----------- "
+      echo " -------- PASSO FIM CONTRUÇÃO --------- "
       echo " -------------------------------------- "
     }
 
