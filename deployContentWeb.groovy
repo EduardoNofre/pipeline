@@ -27,7 +27,7 @@ def iniciarDeploy(gitUrl){
 def buildApp(gitUrl) {
 
       echo " -------------------------------------- "
-      echo " --------- PASSO INICIO CONTRUÇÃO ----- "
+      echo " --------- PASSO INICIO CONSTRUÇÃO ----- "
       echo " -------------------------------------- "
 
       	// URL REPOSITORIO GIT
@@ -64,11 +64,13 @@ def buildApp(gitUrl) {
       }
 
       // ---------------------------------------------------------------------------------------------- 
-      // CONFGIRUAR O JAVA HOME NA MAQUINA ONDE ESTA INSTALADO O JENKINS NO MEU CASO 'JAVA_HOME_11' JRE FOI CONFIGURADO VARIAVEL DE AMBIENTE JAVA 
+      // CONFGIRUAR O JAVA HOME NA MAQUINA ONDE ESTA INSTALADO O JENKINS NO MEU CASO 'JAVA_HOME_08' JRE FOI CONFIGURADO VARIAVEL DE AMBIENTE JAVA 
+	  // JAVA_HOME_08 CONFIGURAR NO GLOBLA TOOLS JENKINS
       // CONFGIRUAR O MAVEM HOME NA MAQUINA ONDE ESTA INSTALADO O JENKINS NO MEU CASO 'M3' FOI CONFIGURADO INSTALAR O MAVEM NA MAQUINA VARIAVEL DE AMBIENTE MAVEN
+	  // M3 CONFIGURAR NO GLOBLA TOOLS DO JENKINS
       // ---------------------------------------------------------------------------------------------- 
       
-	  withEnv(["JAVA_HOME=${ tool 'JAVA_HOME_11' }", "PATH+MAVEN=${tool 'M3'}/bin:${env.JAVA_HOME}/bin"]) {
+	  withEnv(["JAVA_HOME=${ tool 'JAVA_HOME_08' }", "PATH+MAVEN=${tool 'M3'}/bin:${env.JAVA_HOME}/bin"]) {
         sh "rm -f ${pwd()}/src/main/resources/${nomeProperties}"
         sh "mvn --batch-mode -V -U -e clean org.jacoco:jacoco-maven-plugin:prepare-agent verify -Dsurefire.useFile=false -Dskip.failsafe.tests=true"
       }
@@ -105,7 +107,7 @@ def deployAppServer() {
   def userNameServer = "root"
 	
   echo "INICIANDO PUBLICAÇÃO EM [${ambiente}] COM O USUÁRIO: ${userNameServer} NO SERVIDOR: ${server}"
-  withEnv(["JAVA_HOME=${ tool 'JAVA_HOME_11' }", "PATH+MAVEN=${tool 'M3'}/bin:${env.JAVA_HOME}/bin"]) {
+  withEnv(["JAVA_HOME=${ tool 'JAVA_HOME_08' }", "PATH+MAVEN=${tool 'M3'}/bin:${env.JAVA_HOME}/bin"]) {
 
      stopService(userNameServer,server)
      transferFile(nomeWar,origemDir,destinoDir,userNameServer,server) 
