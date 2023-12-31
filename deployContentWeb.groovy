@@ -96,7 +96,7 @@ def buildApp(gitUrl) {
 // ---------------------------------------------------------------------------------------------- 
 def deployAppServer() {
 	
-  def ambiente = "${params.profile}"
+  def ambiente = "${params.ambiente}"
   def server = "${params.servidor}"
   def nomeWar = "content-Integracao-web.war"
   def nomeProperties = "application.properties"
@@ -107,12 +107,12 @@ def deployAppServer() {
   def userNameServer = "root"
 	
 	 if (ambiente == 'null') {
-        echo "Eh obrigatorio definir ambiente no parametros do Jnekins. Variavel ambiente não pode ser nula "
+        echo "EH OBRIGATORIO DEFINIR AMBIENTE NO PARAMETROS DO JNEKINS. VARIAVEL AMBIENTE NÃO PODE SER NULA "
         sh "exit 1"
       }
 	  
 	   if (server == 'null') {
-        echo "Eh obrigatorio definir server no parametros do Jnekins. Variavel server não pode ser nula "
+        echo "EH OBRIGATORIO DEFINIR SERVER NO PARAMETROS DO JNEKINS. VARIAVEL SERVER NÃO PODE SER NULA "
         sh "exit 1"
       }
  
