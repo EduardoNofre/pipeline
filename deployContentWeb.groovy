@@ -105,7 +105,7 @@ def deployAppServer() {
   def userNameServer = "root"
 	
   echo "INICIANDO PUBLICAÇÃO EM [${ambiente}] COM O USUÁRIO: ${userNameServer} NO SERVIDOR: ${server}"
-  withEnv(["JAVA_HOME=${ tool 'JAVA_HOME_11' }", "PATH+MAVEN=${tool 'M3'}/bin:${env.JAVA_HOME}/bin"]) {
+  withEnv(["JAVA_HOME=${ tool 'JAVA_HOME' }", "PATH+MAVEN=${tool 'M3'}/bin:${env.JAVA_HOME}/bin"]) {
 
      stopService(userNameServer,server)
      transferFile(nomeWar,origemDir,destinoDir,userNameServer,server) 
