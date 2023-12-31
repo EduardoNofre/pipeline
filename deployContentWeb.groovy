@@ -106,12 +106,12 @@ def deployAppServer() {
   def msgObjetivo1 = "- Publicar o pacote: ${nomeWar} para ${destinoDir}"
   def userNameServer = "root"
 	
-	 if (ambiente == null) {
+	 if (ambiente == 'null') {
         echo "Eh obrigatorio definir ambiente no parametros do Jnekins. Variavel ambiente não pode ser nula "
         sh "exit 1"
       }
 	  
-	   if (server == null) {
+	   if (server == 'null') {
         echo "Eh obrigatorio definir server no parametros do Jnekins. Variavel server não pode ser nula "
         sh "exit 1"
       }
