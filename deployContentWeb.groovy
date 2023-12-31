@@ -107,13 +107,13 @@ def deployAppServer() {
   def userNameServer = "root"
 	
 	 if (ambiente == 'null') {
-        echo "EH OBRIGATORIO DEFINIR AMBIENTE NO PARAMETROS DO JNEKINS. VARIAVEL AMBIENTE NÃO PODE SER NULA "
-        sh "exit 1"
+			echo "EH OBRIGATORIO DEFINIR AMBIENTE NO PARAMETROS DO JNEKINS. VARIAVEL AMBIENTE NÃO PODE SER NULA "
+			sh "exit 1"
       }
 	  
-	   if (server == 'null') {
-        echo "EH OBRIGATORIO DEFINIR SERVER NO PARAMETROS DO JNEKINS. VARIAVEL SERVER NÃO PODE SER NULA "
-        sh "exit 1"
+	 if (server == 'null') {
+			echo "EH OBRIGATORIO DEFINIR SERVER NO PARAMETROS DO JNEKINS. VARIAVEL SERVER NÃO PODE SER NULA "
+			sh "exit 1"
       }
  
 	
@@ -136,14 +136,15 @@ def deployAppServer() {
 def stopService(userNameServer,server) {
     try{
 	echo " ----------------------------------------------------------------- "
-	echo " -------------- STOP SERVICE DIGITAL-CONFIG-SERVICE -------------- "
+	echo " -------------- STOP SERVICE CONTENT-INTEGRACAO-WEB.SERVICE -------------- "
 	echo " ----------------------------------------------------------------- "
-	sh "sshpass -p ${userNameServer}@${server} sudo systemctl stop digital-config-service.service"
+	sh "sshpass -p ${userNameServer}@${server} sudo systemctl stop content-integracao-web.service"
 
-	sh "sshpass -p ${userNameServer} ssh ${userNameServer}@${servidor} sudo systemctl stop digital-config-service.service"
+	sh "sshpass -p ${userNameServer} ssh ${userNameServer}@${servidor} sudo systemctl stop content-integracao-web.service"
 	sh "sleep 5"
 	} catch (Exception ex) {
             echo "ERRO STOPSERVICE: ${ex}"
+			sh "exit 1"
       }	
 }
 
@@ -166,6 +167,7 @@ def transferFile(nomeWar,origemDir,destinoDir,userNameServer,server) {
 	echo " ----------------------------------------------------------------------------------- "
 	} catch (Exception ex) {
             echo "ERRO AO MOVER O ARQUIVO: ${ex}"
+			sh "exit 1"
       }	
 }
 
@@ -175,13 +177,14 @@ def transferFile(nomeWar,origemDir,destinoDir,userNameServer,server) {
 def startService(userNameServer,server,nomeWar) {
     try{
 	echo " ----------------------------------------------------------------------------------- "
-	echo " -------------- INICIALIZANO O SERVIÇO  CONTENT-INTEGRACAO-WEB.SERICE -------------- "
+	echo " -------------- INICIALIZANO O SERVIÇO  CONTENT-INTEGRACAO-WEB.SERVICE -------------- "
 	echo " ----------------------------------------------------------------------------------- "
 	
-	sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl start content-integracao-web.serice"
+	sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl start content-integracao-web.service"
 	echo "Pacote ${nomeWar} publicado com sucesso."
 	} catch (Exception ex) {
             echo "ERRO AO INICIALIZAR O SERVIÇO: ${ex}"
+			sh "exit 1"
       }
 }
 
@@ -195,6 +198,7 @@ def notificarDeploy(gitUrl){
 	echo " ----------------------------------------------------------------------------------- "
 	} catch (Exception ex) {
             echo "ERRO AO NOTIFICAR DEPLOY : ${ex}"
+			sh "exit 1"
       }
 }
 
