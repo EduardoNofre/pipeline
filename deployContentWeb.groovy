@@ -98,13 +98,24 @@ def deployAppServer() {
 	
   def ambiente = "${params.profile}"
   def server = "${params.servidor}"
-  def nomeWar = "Content-Integracao.war"
+  def nomeWar = "content-Integracao-web.war"
   def nomeProperties = "application.properties"
   def origemDir = "${pwd()}/target"
   def destinoDir = "/java/content/integracao/web"
   def msgObjetivo = "Objetivo";
   def msgObjetivo1 = "- Publicar o pacote: ${nomeWar} para ${destinoDir}"
   def userNameServer = "root"
+	
+	 if (ambiente == null) {
+        echo "Eh obrigatorio definir ambiente no parametros do Jnekins. Variavel ambiente não pode ser nula "
+        sh "exit 1"
+      }
+	  
+	   if (server == null) {
+        echo "Eh obrigatorio definir server no parametros do Jnekins. Variavel server não pode ser nula "
+        sh "exit 1"
+      }
+ 
 	
   echo "INICIANDO PUBLICAÇÃO EM [${ambiente}] COM O USUÁRIO: ${userNameServer} NO SERVIDOR: ${server}"
   withEnv(["JAVA_HOME=${ tool 'JAVA_HOME_08' }", "PATH+MAVEN=${tool 'M3'}/bin:${env.JAVA_HOME}/bin"]) {
@@ -164,10 +175,10 @@ def transferFile(nomeWar,origemDir,destinoDir,userNameServer,server) {
 def startService(userNameServer,server,nomeWar) {
     try{
 	echo " ----------------------------------------------------------------------------------- "
-	echo " -------------- INICIALIZANO O SERVIÇO  DIGITAL-CONFIG-SERVICE.SERICE -------------- "
+	echo " -------------- INICIALIZANO O SERVIÇO  CONTENT-INTEGRACAO-WEB.SERICE -------------- "
 	echo " ----------------------------------------------------------------------------------- "
 	
-	sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl start digital-config-service.service"
+	sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl start content-integracao-web.serice"
 	echo "Pacote ${nomeWar} publicado com sucesso."
 	} catch (Exception ex) {
             echo "ERRO AO INICIALIZAR O SERVIÇO: ${ex}"
