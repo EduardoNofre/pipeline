@@ -1,7 +1,7 @@
 def iniciarDeploy(gitUrl){ 
 
       echo " ---------------------------------------------------------------------------- "
-      echo " ---------------------- INICIO DO SCRIPT DEPLOY CONTENT web + --------------- "
+      echo " ---------------------- INICIO DO SCRIPT DEPLOY CONTENT WEB + --------------- "
       echo " ---------------------------------------------------------------------------- "
 	  
 	 try {
@@ -136,11 +136,11 @@ def deployAppServer() {
 def stopService(userNameServer,server) {
     try{
 	echo " ----------------------------------------------------------------- "
-	echo " -------------- STOP SERVICE CONTENT-INTEGRACAO-WEB.SERVICE -------------- "
+	echo " -------------- STOP SERVICE WILDFLY-CONTENT-HML.SERVICE --------- "
 	echo " ----------------------------------------------------------------- "
-	sh "sshpass -p ${userNameServer}@${server} sudo systemctl stop content-integracao-web.service"
+	sh "sshpass -p ${userNameServer}@${server} sudo systemctl stop wildfly-content-hml.service"
 
-	sh "sshpass -p ${userNameServer} ssh ${userNameServer}@${servidor} sudo systemctl stop content-integracao-web.service"
+	sh "sshpass -p ${userNameServer} ssh ${userNameServer}@${servidor} sudo systemctl stop wildfly-content-hml.service"
 	sh "sleep 5"
 	} catch (Exception ex) {
             echo "ERRO STOPSERVICE: ${ex}"
@@ -177,10 +177,10 @@ def transferFile(nomeWar,origemDir,destinoDir,userNameServer,server) {
 def startService(userNameServer,server,nomeWar) {
     try{
 	echo " ----------------------------------------------------------------------------------- "
-	echo " -------------- INICIALIZANO O SERVIÇO  CONTENT-INTEGRACAO-WEB.SERVICE -------------- "
+	echo " -------------- INICIALIZANO O SERVIÇO  WILDFLY-CONTENT-HML.SERVICE ---------------- "
 	echo " ----------------------------------------------------------------------------------- "
 	
-	sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl start content-integracao-web.service"
+	sh "ssh -tt -o StrictHostKeyChecking=no ${userNameServer}@${server} sudo systemctl start wildfly-content-hml.service"
 	echo "Pacote ${nomeWar} publicado com sucesso."
 	} catch (Exception ex) {
             echo "ERRO AO INICIALIZAR O SERVIÇO: ${ex}"
