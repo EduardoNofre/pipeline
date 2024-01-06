@@ -101,7 +101,7 @@ def deployAppServer() {
   def nomeWar = "content-Integracao-web.war"
   def nomeProperties = "application.properties"
   def origemDir = "${pwd()}/target"
-  def destinoDir = "${server}/opt/wildfly/standalone-content-hml/deployment/"
+  def destinoDir = "/opt/wildfly/standalone-content-hml/deployment/"
   def userNameServer = "root"
 	
 	 if (ambiente == 'null') {
