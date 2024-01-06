@@ -157,7 +157,7 @@ def transferFile(nomeWar,origemDir,destinoDir,userNameServer,server) {
 	echo " ----------- ORIGEM ${origemDir}   ------------"
 	echo " ----------- DESTINO ${destinoDir} ------------"
 	
-	sh "scp ${origemDir}/${nomeWar} ${userNameServer}@${server}:${destinoDir}/"
+	sh "scp ${origemDir}/${nomeWar} ${userNameServer}@${server}:${destinoDir}"
 	
 	echo " ----------------------------------------------------------------------------------- "
 	echo " ---------------------------- TRANSFERIDO COM SUCESSO ------------------------------ "
