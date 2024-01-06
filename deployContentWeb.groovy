@@ -101,7 +101,7 @@ def deployAppServer() {
   def nomeWar = "content-Integracao-web.war"
   def nomeProperties = "application.properties"
   def origemDir = "${pwd()}/target"
-  def destinoDir = "${server}/java/content/integracao/web"
+  def destinoDir = "${server}/opt/wildfly/standalone-content-hml/deployment/"
   def msgObjetivo = "Objetivo";
   def msgObjetivo1 = "- Publicar o pacote: ${nomeWar} para ${destinoDir}"
   def userNameServer = "root"
