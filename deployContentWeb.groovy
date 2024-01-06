@@ -102,8 +102,6 @@ def deployAppServer() {
   def nomeProperties = "application.properties"
   def origemDir = "${pwd()}/target"
   def destinoDir = "${server}/opt/wildfly/standalone-content-hml/deployment/"
-  def msgObjetivo = "Objetivo";
-  def msgObjetivo1 = "- Publicar o pacote: ${nomeWar} para ${destinoDir}"
   def userNameServer = "root"
 	
 	 if (ambiente == 'null') {
@@ -138,7 +136,7 @@ def stopService(userNameServer,server) {
 	echo " ----------------------------------------------------------------- "
 	echo " -------------- STOP SERVICE WILDFLY-CONTENT-HML.SERVICE --------- "
 	echo " ----------------------------------------------------------------- "
-	sh "sshpass -p ${userNameServer}@${server} sudo systemctl stop wildfly-content-hml.service"
+	sh "sshpass -p @abc123 ssh ${userNameServer}@${server} sudo systemctl stop wildfly-content-hml.service"
 
 	sh "sshpass -p ${userNameServer} ssh ${userNameServer}@${servidor} sudo systemctl stop wildfly-content-hml.service"
 	sh "sleep 5"
