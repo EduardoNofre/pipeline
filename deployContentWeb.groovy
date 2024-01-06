@@ -138,7 +138,6 @@ def stopService(userNameServer,server) {
 	echo " ----------------------------------------------------------------- "
 	sh "sshpass -p @abc123 ssh ${userNameServer}@${server} sudo systemctl stop wildfly-content-hml.service"
 
-	sh "sshpass -p ${userNameServer} ssh ${userNameServer}@${servidor} sudo systemctl stop wildfly-content-hml.service"
 	sh "sleep 5"
 	} catch (Exception ex) {
             echo "ERRO STOPSERVICE: ${ex}"
