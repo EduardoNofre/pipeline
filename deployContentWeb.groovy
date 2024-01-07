@@ -101,7 +101,7 @@ def deployAppServer() {
   def nomeWar = "content-Integracao-web.war"
   def nomeProperties = "application.properties"
   def origemDir = "/var/lib/jenkins/workspace/TCI-CONTENT-WEB/Homologação/JUCEC@2/web/target"
-  def destinoDir = "/opt/wildfly/standalone-content-hml/deployment"
+  def destinoDir = "/opt/wildfly/standalone-content-hml/deployments"
   def userNameServer = "root"
 	
 	 if (ambiente == 'null') {
